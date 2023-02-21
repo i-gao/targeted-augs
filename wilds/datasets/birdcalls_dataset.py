@@ -41,7 +41,7 @@ class BirdCallsDataset(WILDSDataset):
     _versions_dict = {
         '1.0': {
             'download_url': 'https://worksheets.codalab.org/rest/bundles/0x83846a709fbc4cf08ad14bee87ec8193/contents/blob/',
-            'compressed_size': 10_500_000_000}}
+            'compressed_size': 11_225_304_127}}
 
     def __init__(self, version=None, root_dir='data', download=False, split_scheme='hawaii-234', keep_ood_train=False):
 
