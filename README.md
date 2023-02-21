@@ -21,7 +21,7 @@ The repository supports running
 
 ### Training with targeted augmentations
 
-We also provide implementations for the three targeted data augmentations introduced in the paper.
+We also provide implementations for the three targeted data augmentations studied in the paper.
 
 1. **Copy-Paste (Same Y) for iWildCam2020-WILDS.** In iWildCam, image backgrounds are domain-dependent features with both spurious and robust components. While low-level background features are spurious, habitat features are robust. Copy-Paste (Same Y) transforms input $(x, y)$ by pasting the animal foreground onto a random training set background---but only onto backgrounds from training cameras that also observe $y$. This randomizes low-level background features while roughly preserving habitat.
 
