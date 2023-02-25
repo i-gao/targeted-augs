@@ -1,5 +1,6 @@
 # Out-of-Domain Robustness via Targeted Augmentations
-Code for the paper [Out-of-Domain Robustness via Targeted Augmentations]() by Irena Gao*, Shiori Sagawa*, Pang Wei Koh, Tatsunori Hashimoto, and Percy Liang.
+Code for the paper [Out-of-Domain Robustness via Targeted Augmentations](https://arxiv.org/abs/2302.11861) by Irena Gao*, Shiori Sagawa*, Pang Wei Koh, Tatsunori Hashimoto, and Percy Liang.
+Model weights are also available at [this Codalab Worksheet](https://worksheets.codalab.org/worksheets/0xd0f4b91b0c6c418390ad4f48bf80993d).
 
 <small>Repository originally forked from [WILDS](https://github.com/p-lambda/wilds).</small>
 
@@ -26,19 +27,28 @@ We also provide implementations for the three targeted data augmentations studie
 1. **Copy-Paste (Same Y) for iWildCam2020-WILDS.** In iWildCam, image backgrounds are domain-dependent features with both spurious and robust components. While low-level background features are spurious, habitat features are robust. Copy-Paste (Same Y) transforms input $(x, y)$ by pasting the animal foreground onto a random training set background---but only onto backgrounds from training cameras that also observe $y$. This randomizes low-level background features while roughly preserving habitat.
 
 ```bash
-python examples/run_expt.py --root_dir path/to/data --lr 3.490455181206744e-05 --transform_p 0.5682688104816859 --train_additional_transforms copypaste_same_y --algorithm ERM --dataset iwildcam --download
+python examples/run_expt.py --root_dir path/to/data --lr 3.490455181206744e-05 --weight_decay 0 --transform_p 0.5682688104816859 --train_additional_transforms copypaste_same_y --algorithm ERM --dataset iwildcam --download
 ```
 
 2. **Stain Color Jitter for Camelyon17-WILDS.** In Camelyon17, stain color is a spurious domain-dependent feature, while stage-related features are robust domain-dependent features. Stain Color Jitter ([Tellez et al., 2018](https://pubmed.ncbi.nlm.nih.gov/29994086/)) transforms $x$ by jittering its color in the hematoxylin and eosin staining color space.
 
 ```bash
-python examples/run_expt.py --root_dir path/to/data --lr 0.0030693212138627936 --transform_p 0.5682688104816859 --train_additional_transforms camelyon_color --transform_kwargs sigma=0.1 --algorithm ERM --dataset camelyon17 --download
+python examples/run_expt.py --root_dir path/to/data --lr 0.0030693212138627936 --weight_decay 0.01 --transform_p 0.5682688104816859 --train_additional_transforms camelyon_color --transform_kwargs sigma=0.1 --algorithm ERM --dataset camelyon17 --download
 ```
 
 3. **Copy-Paste + Jitter (Region) for BirdCalls.** In BirdCalls, low-level noise and gain levels are spurious domain-dependent features, while habitat-specific noise is a robust domain-dependent feature. Copy-Paste + Jitter (Region) leverages time-frequency bounding boxes to paste bird calls onto other training set recordings from the same geographic region (Southwestern Amazon Basin, Hawaii, or Northeastern United States). After pasting the bird call, we also jitter hue levels of the spectrogram to simulate randomizing microphone gain settings.
 
 ```bash
-python examples/run_expt.py --root_dir path/to/data --lr 0.00044964663762800047 --transform_p 0.5983713912982213 --train_additional_transforms copypaste_same_region --algorithm ERM --dataset birdcalls --download
+python examples/run_expt.py --root_dir path/to/data --lr 0.00044964663762800047 --weight_decay 0.001 --transform_p 0.5983713912982213 --train_additional_transforms copypaste_same_region --algorithm ERM --dataset birdcalls --download
 ```
 
 ## Citation
+If this codebase / these models are useful in your work, please consider citing our paper.
+
+```
+@inproceedings{gao2023out,
+  title={Out-of-Domain Robustness via Targeted Augmentations},
+  author={Gao, Irena and Sagawa, Shiori and Koh, Pang Wei and Hashimoto, Tatsunori and Liang, Percy},
+  url={https://arxiv.org/abs/2302.11861}
+}
+```
