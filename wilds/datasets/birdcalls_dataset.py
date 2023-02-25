@@ -182,6 +182,6 @@ class BirdCallsDataset(WILDSDataset):
             - conf (float): max confidence over the bboxes (because this is human-annotated, conf=1. we need to return
                 two values for the cutpaste augmentation)
         """
-        bbox = self.bboxes.loc[self.img_ids[idx]]
+        bbox = self.bboxes[idx]
         if type(bbox) != list: return [[]], 0
         else: return [bbox], 1

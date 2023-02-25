@@ -16,16 +16,8 @@ class CopyPasteAugment:
         where the indices are the indices of empty (no object) examples in the dataset.
 
         Initialize the augmentation.
-            - if include_train=True, empty_img_split is used IN ADDITION to the train empty images
-            - same_loc samples an empty image from the same camera as the incoming input
-            - same_cluster samples an empty image from the same cluster of cameras as the incoming input (iwildcam only)
-            - same_time samples an empty image from the same night/day distinction as the incoming input (iwildcam only)
+            - same_cluster samples an empty image from the same cluster of cameras as the incoming input
             - same_y_observed samples an empty image from a camera that in the dataset observes an instance of the same y as the incoming input
-                note: this uses test set y information if empty_idxs include test idxs
-            - max_empty_imgs_per_loc makes sampling empty images more uniform across cameras; when the class is initialized,
-                we cull down empty_indices s.t. we have at most this many empty images per location
-            - max_locs reduces the number of cameras we sample empty images from. when the class is initialized,
-                we cull down empty_indices s.t. we have indices from at most this many locations
         """
         assert labeled_dataset.dataset_name in ("iwildcam", "birdcalls") # must have bboxes / masks
         assert hasattr(labeled_dataset, 'get_bbox'), "You might be using a dataset class from the default wilds package. This code assumes you're using our modified version that returns bboxes, masks, etc."

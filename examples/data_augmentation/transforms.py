@@ -343,8 +343,13 @@ def initialize_copypaste_same_region_transform(config, dataset, is_training, gro
     return [
         CopyPasteAugment( # DO NOT FLIP OR CROP BEFORE THIS BECAUSE BBOXES & MASKS WILL GET MESSED UP
             dataset,
-            empty_img_split='train',
             same_cluster=True,
+        ),
+        transforms.ColorJitter(
+            brightness=0,
+            contrast=0,
+            saturation=2,
+            hue=0.5,
         ),
         transforms.RandomHorizontalFlip(),
     ]
@@ -355,7 +360,6 @@ def initialize_copypaste_same_y_transform(config, dataset, is_training, grouper)
     return [
         CopyPasteAugment( # DO NOT FLIP OR CROP BEFORE THIS BECAUSE BBOXES & MASKS WILL GET MESSED UP
             dataset,
-            empty_img_split='train',
             same_y_observed=True,
         ),
         transforms.RandomHorizontalFlip(),
